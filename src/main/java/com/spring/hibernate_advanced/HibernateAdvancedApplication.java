@@ -12,6 +12,7 @@ import com.spring.hibernate_advanced.entity.Course;
 import com.spring.hibernate_advanced.entity.Instructor;
 import com.spring.hibernate_advanced.entity.InstructorDetail;
 import com.spring.hibernate_advanced.entity.Review;
+import com.spring.hibernate_advanced.entity.Student;
 
 @SpringBootApplication
 public class HibernateAdvancedApplication {
@@ -35,12 +36,86 @@ public class HibernateAdvancedApplication {
 			// updateInstructor(app);
 			// deleteInstructorOnly(app);
 			// createCourseAndReview(app);
-			retrieveCourseAndReview(app);
+			// retrieveCourseAndReview(app);
+			// deleteCourseAndReviews(app);
+			// createCourseAndStudents(app);
+			// findCoursesAndStudents(app);
+			// addMoreCoursesForStudent(app);
+			// deleteCourseById(app);
+			deleteStudent(app);
 		};
 	}
 
+	private void deleteStudent(AppDao app) {
+		int id = 24;
+		System.out.println("Delete student: " + id);
+
+		app.deleteStudentById(id);
+		System.out.println("Deleted successfully!");
+
+	}
+
+	private void deleteCourseById(AppDao app) {
+		int id = 22;
+		System.out.println("Delete course: " + id);
+
+		app.deleteCourseById(id);
+		System.out.println("Deleted successfully!");
+
+	}
+
+	private void addMoreCoursesForStudent(AppDao app) {
+		int id = 23;
+		Student student = app.findStudentAndCoursesByStudentId(id);
+
+		Course course1 = new Course("かなの書き方");
+		Course course2 = new Course("漢字の読み方");
+		Course course3 = new Course("りょうりの作り方");
+
+		student.addCourse(course1);
+		student.addCourse(course2);
+		student.addCourse(course3);
+
+		System.out.println("Successfully enrolled to new courses!");
+		app.update(student);
+
+	}
+
+	private void findCoursesAndStudents(AppDao app) {
+		int id = 21;
+		Course course = app.findCourseAndStudentByCourseId(id);
+
+		System.out.println("Course: " + course);
+		System.out.println("Students: " + course.getStudents());
+
+	}
+
+	private void createCourseAndStudents(AppDao app) {
+		Course course = new Course("How to Become a Pickleball Pro");
+
+		Student student1 = new Student("Sonic", "Hedgehog", "sonic@mail.com");
+		Student student2 = new Student("Knuckles", "Echidna", 
+										"knuckles@mail.com");
+
+		course.addStudent(student1);
+		course.addStudent(student2);
+
+		app.save(course);
+		System.out.println("Successfully enrolled!");
+
+	}
+
+	private void deleteCourseAndReviews(AppDao app) {
+		int id = 10;
+		System.out.println("Delete course: " + id);
+
+		app.deleteCourseById(id);
+		System.out.println("Deleted successfully!");
+
+	}
+
 	private void retrieveCourseAndReview(AppDao app) {
-		int id = 3;
+		int id = 9;
 		System.out.println("Get course and reviews from id: " + id);
 
 		Course course = app.findCourseAndReviewsByCourseId(id);
