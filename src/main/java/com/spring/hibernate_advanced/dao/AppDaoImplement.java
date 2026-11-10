@@ -2,6 +2,7 @@ package com.spring.hibernate_advanced.dao;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.hibernate_advanced.entity.Course;
@@ -13,11 +14,31 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
+/**
+ * AppDaoImplement
+ * Implementation of the {@link AppDao} interface 
+ * using JPA {@link EntityManager}.
+ * <p>
+ * Handles database access logic across relational mappings including
+ * single queries, JOIN FETCH optimization, updates, and deletions.
+ * </p>
+ * 
+ * @author Felisa Bascug
+ */
 @Repository 
 public class AppDaoImplement implements AppDao {
 
+    /**
+     * JPA Entity Manager instance injected via constructor.
+     */
     private EntityManager em;
 
+    /**
+     * Constructs a new {@code AppDaoImplement} with 
+     * the provided {@link EntityManager}.
+     *
+     * @param em the JPA entity manager instance
+     */
     public AppDaoImplement(EntityManager em) {
         this.em = em;
     }

@@ -14,13 +14,36 @@ import com.spring.hibernate_advanced.entity.InstructorDetail;
 import com.spring.hibernate_advanced.entity.Review;
 import com.spring.hibernate_advanced.entity.Student;
 
+/**
+ * HibernateAdvancedApplication
+ * Main entry point for the Hibernate Advanced Spring Boot Application.
+ * <p>
+ * Demonstrates basic and advanced JPA operations including One-to-One, 
+ * One-to-Many, and Many-to-Many relationship management using {@link AppDao}.
+ * </p>
+ * 
+ * @author Felisa Bascug
+ */
 @SpringBootApplication
 public class HibernateAdvancedApplication {
 
+	/**
+	 * Main method used to launch the Spring Boot application context.
+	 *
+	 * @param args command-line arguments passed during startup
+	 */
 	public static void main(String[] args) {
-		SpringApplication.run(HibernateAdvancedApplication.class, args);
+		SpringApplication.run(HibernateAdvancedApplication.class, 
+		args);
 	}
 
+	/**
+	 * Creates a {@link CommandLineRunner} bean executed immediately after
+	 * the application context is loaded.
+	 *
+	 * @param app the injected Data Access Object bean
+	 * @return a runner lambda executing demo JPA operations
+	 */
 	@Bean 
 	CommandLineRunner commandLineRunner(AppDao app) {
 		return runner -> {
@@ -46,6 +69,11 @@ public class HibernateAdvancedApplication {
 		};
 	}
 
+	/**
+	 * Demonstrates deleting a {@link Student} by unique primary key ID.
+	 *
+	 * @param app the DAO instance used to perform deletion
+	 */
 	private void deleteStudent(AppDao app) {
 		int id = 24;
 		System.out.println("Delete student: " + id);
@@ -55,6 +83,11 @@ public class HibernateAdvancedApplication {
 
 	}
 
+	/**
+	 * Demonstrates deleting a {@link Course} by unique primary key ID.
+	 *
+	 * @param app the DAO instance used to perform deletion
+	 */
 	private void deleteCourseById(AppDao app) {
 		int id = 22;
 		System.out.println("Delete course: " + id);
@@ -64,6 +97,13 @@ public class HibernateAdvancedApplication {
 
 	}
 
+	/**
+	 * Demonstrates enrolling an existing {@link Student} 
+	 * into additional {@link Course} entities.
+	 *
+	 * @param appDao the DAO instance used to update student course 
+	 * 		assignments
+	 */
 	private void addMoreCoursesForStudent(AppDao app) {
 		int id = 23;
 		Student student = app.findStudentAndCoursesByStudentId(id);
@@ -81,6 +121,12 @@ public class HibernateAdvancedApplication {
 
 	}
 
+	/**
+	 * Demonstrates retrieving a {@link Course} along 
+	 * with its enrolled {@link Student} entities.
+	 *
+	 * @param appDao the DAO instance used to fetch data
+	 */
 	private void findCoursesAndStudents(AppDao app) {
 		int id = 21;
 		Course course = app.findCourseAndStudentByCourseId(id);
@@ -90,12 +136,19 @@ public class HibernateAdvancedApplication {
 
 	}
 
+	/**
+	 * Demonstrates creating a new {@link Course} and 
+	 * enrolling multiple {@link Student} entities into it.
+	 *
+	 * @param app the DAO instance used to save the course and students
+	 */
 	private void createCourseAndStudents(AppDao app) {
 		Course course = new Course("How to Become a Pickleball Pro");
 
-		Student student1 = new Student("Sonic", "Hedgehog", "sonic@mail.com");
+		Student student1 = new Student("Sonic", "Hedgehog", 
+						"sonic@mail.com");
 		Student student2 = new Student("Knuckles", "Echidna", 
-										"knuckles@mail.com");
+						"knuckles@mail.com");
 
 		course.addStudent(student1);
 		course.addStudent(student2);
@@ -105,6 +158,12 @@ public class HibernateAdvancedApplication {
 
 	}
 
+	/**
+	 * Demonstrates deleting a {@link Course} along with 
+	 * its associated reviews by ID.
+	 *
+	 * @param app the DAO instance used to perform deletion
+	 */
 	private void deleteCourseAndReviews(AppDao app) {
 		int id = 10;
 		System.out.println("Delete course: " + id);
@@ -114,6 +173,12 @@ public class HibernateAdvancedApplication {
 
 	}
 
+	/**
+	 * Demonstrates retrieving a {@link Course} along with 
+	 * its associated {@link Review} list by course ID.
+	 *
+	 * @param app the DAO instance used to fetch data
+	 */
 	private void retrieveCourseAndReview(AppDao app) {
 		int id = 9;
 		System.out.println("Get course and reviews from id: " + id);
@@ -125,8 +190,15 @@ public class HibernateAdvancedApplication {
 
 	}
 
+	/**
+	 * Demonstrates creating a new {@link Course} and 
+	 * attaching multiple {@link Review} objects to it.
+	 *
+	 * @param app the DAO instance used to save the course with reviews
+	 */
 	private void createCourseAndReview(AppDao app) {
-		Course course = new Course("How to be goated with the sauce!!!");
+		Course course = new Course(
+			"How to be goated with the sauce!!!");
 		
 		course.addReview(new Review("Woah I'm goated"));
 		course.addReview(new Review("Sauce was just OK"));
@@ -137,6 +209,12 @@ public class HibernateAdvancedApplication {
 
 	}
 
+	/**
+	 * Demonstrates deleting an {@link Instructor} 
+	 * without deleting associated entities.
+	 *
+	 * @param app the DAO instance used to perform deletion
+	 */
 	private void deleteInstructorOnly(AppDao app) {
 		int id = 8;
 		System.out.println("Delete instructor: " + id);
@@ -146,6 +224,12 @@ public class HibernateAdvancedApplication {
 
 	}
 
+	/**
+	 * Demonstrates updating an existing {@link Instructor} 
+	 * record in the database.
+	 *
+	 * @param app the DAO instance used to update instructor data
+	 */
 	private void updateInstructor(AppDao app) {
 		int id = 7;
 		System.out.println("Find instructor id: " + id);
@@ -159,6 +243,12 @@ public class HibernateAdvancedApplication {
 
 	}
 
+	/**
+	 * Demonstrates retrieving an {@link Instructor} 
+	 * along with their courses using JOIN FETCH query optimization.
+	 *
+	 * @param app the DAO instance used to fetch data
+	 */
 	private void findInstructorWithCoursesJoinFetch(AppDao app) {
 		int id = 8;
 		System.out.println("Find instructor id: " + id);
@@ -170,6 +260,12 @@ public class HibernateAdvancedApplication {
 
 	}
 
+	/**
+	 * Demonstrates finding an {@link Instructor} and 
+	 * explicitly querying their associated {@link Course} list.
+	 *
+	 * @param app the DAO instance used to fetch data
+	 */
 	private void findCoursesForInstructor(AppDao app) {
 		int id = 7;
 
@@ -191,6 +287,12 @@ public class HibernateAdvancedApplication {
 
 	}
 
+	/**
+	 * Demonstrates fetching an {@link Instructor} 
+	 * and getting their courses list.
+	 *
+	 * @param app the DAO instance used to fetch data
+	 */
 	private void findInstructorWithCourse(AppDao app) {
 		int id = 6;
 		System.out.println("Finding instructor id: " + id);
@@ -202,12 +304,20 @@ public class HibernateAdvancedApplication {
 
 	}
 
+	/**
+	 * Demonstrates persisting a new {@link Instructor} 
+	 * along with an {@link InstructorDetail} 
+	 * and multiple {@link Course} entities.
+	 *
+	 * @param app the DAO instance used to save data
+	 */
 	private void createInstructorWithCourses(AppDao app) {
 		Instructor ins = new Instructor("Lorem", 
-										"Ipsum", 
-										"lorem.ipsum@mail.com");
-		InstructorDetail detail = new InstructorDetail("Computer Science", 
-												"Making games");
+						"Ipsum", 
+						"lorem.ipsum@mail.com");
+		InstructorDetail detail = new InstructorDetail(
+			"Computer Science", 
+			"Making games");
 
 		ins.setInstructorDetail(detail); // associate the objects
 
@@ -224,6 +334,11 @@ public class HibernateAdvancedApplication {
 
 	}
 
+	/**
+	 * Demonstrates deleting an {@link InstructorDetail} record by ID.
+	 *
+	 * @param app the DAO instance used to perform deletion
+	 */
 	private void deleteInstructorDetail(AppDao app) {
 		int id = 3;
 		System.out.println("Delete id: " + id);
@@ -233,21 +348,34 @@ public class HibernateAdvancedApplication {
 	
 	}
 
+	/**
+	 * Demonstrates retrieving an {@link InstructorDetail} 
+	 * and its associated {@link Instructor}.
+	 *
+	 * @param app the DAO instance used to fetch data
+	 */
 	private void findInstructorDetail(AppDao app) {
 		// get instructor detail object
 		int id = 4;
 		System.out.println("Finding id: " + id);
 
-		InstructorDetail instructorDetail = app.findInstructorDetailById(id);
+		InstructorDetail instructorDetail = 
+			app.findInstructorDetailById(id);
 
 		// print instructor detail
 		System.out.println("Instructor Detail: " + instructorDetail);
 
 		// print associated instructor
-		System.out.println("Instructor: " + instructorDetail.getInstructor());
+		System.out.println("Instructor: " + 
+			instructorDetail.getInstructor());
 	
 	}
 
+	/**
+	 * Demonstrates deleting an {@link Instructor} by unique ID.
+	 *
+	 * @param app the DAO instance used to perform deletion
+	 */
 	private void deleteInstructor(AppDao app) {
 		int id = 1;
 		System.out.println("Deleting id: " + id);
@@ -257,6 +385,12 @@ public class HibernateAdvancedApplication {
 	
 	}
 
+	/**
+	 * Demonstrates finding an {@link Instructor} and 
+	 * printing their details.
+	 *
+	 * @param app the DAO instance used to fetch data
+	 */
 	private void findInstructor(AppDao app) {
 		int id = 4;
 		System.out.println("Finding id: " + id);
@@ -268,13 +402,19 @@ public class HibernateAdvancedApplication {
 	
 	}
 
+	/**
+	 * Demonstrates persisting a new {@link Instructor} 
+	 * with an associated {@link InstructorDetail}.
+	 *
+	 * @param app the DAO instance used to save data
+	 */
 	private void createInstructor(AppDao app) {
 		// create instructor and details
 		Instructor ins = new Instructor("John", 
-										"Doe", 
-										"john.doe@example.com");
+						"Doe", 
+						"john.doe@example.com");
 		InstructorDetail insDetail = new InstructorDetail("Math", 
-												"Watching movies");
+								"Watching movies");
 
 		// associate the objects
 		ins.setInstructorDetail(insDetail);
