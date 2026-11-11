@@ -1,18 +1,14 @@
 package com.spring.hibernate_advanced.dao;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
 import com.spring.hibernate_advanced.entity.Course;
 import com.spring.hibernate_advanced.entity.Instructor;
 import com.spring.hibernate_advanced.entity.InstructorDetail;
 import com.spring.hibernate_advanced.entity.Student;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
+import java.util.List;
+import org.springframework.stereotype.Repository;
 
 /**
  * AppDaoImplement

@@ -1,18 +1,16 @@
 package com.spring.hibernate_advanced;
 
-import java.util.List;
-
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
 import com.spring.hibernate_advanced.dao.AppDao;
 import com.spring.hibernate_advanced.entity.Course;
 import com.spring.hibernate_advanced.entity.Instructor;
 import com.spring.hibernate_advanced.entity.InstructorDetail;
 import com.spring.hibernate_advanced.entity.Review;
 import com.spring.hibernate_advanced.entity.Student;
+import java.util.List;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 /**
  * HibernateAdvancedApplication
