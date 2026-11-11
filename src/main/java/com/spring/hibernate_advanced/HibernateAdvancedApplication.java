@@ -63,7 +63,7 @@ public class HibernateAdvancedApplication {
 			// findCoursesAndStudents(app);
 			// addMoreCoursesForStudent(app);
 			// deleteCourseById(app);
-			deleteStudent(app);
+			// deleteStudent(app);
 		};
 	}
 
