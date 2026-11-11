@@ -3,6 +3,7 @@ package com.spring.hibernate_advanced.dao;
 import com.spring.hibernate_advanced.entity.Course;
 import com.spring.hibernate_advanced.entity.Instructor;
 import com.spring.hibernate_advanced.entity.InstructorDetail;
+import com.spring.hibernate_advanced.entity.Review;
 import com.spring.hibernate_advanced.entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -39,17 +40,34 @@ public class AppDaoImplement implements AppDao {
         this.em = em;
     }
 
+    /**
+     * Persists a new {@link Instructor} along with 
+     * its associated {@link InstructorDetail}.
+     *
+     * @param theInstructor the instructor entity to save
+     */
     @Override
     @Transactional 
     public void save(Instructor instructor) {
        em.persist(instructor);
     }
-
+/**
+     * Retrieves an {@link Instructor} by unique ID.
+     *
+     * @param id the primary key identifier
+     * @return the matching {@link Instructor} entity, 
+     *          or {@code null} if not found
+     */
     @Override
     public Instructor findInstructorById(int id) {
         return em.find(Instructor.class, id);
     }
 
+    /**
+     * Deletes an {@link Instructor} by unique ID.
+     *
+     * @param id the primary key identifier of the instructor to delete
+     */
     @Override
     @Transactional 
     public void deleteInstructorById(int id) {
@@ -67,12 +85,25 @@ public class AppDaoImplement implements AppDao {
 
     }
 
+    /**
+     * Retrieves an {@link InstructorDetail} by unique ID.
+     *
+     * @param id the primary key identifier
+     * @return the matching {@link InstructorDetail} entity, 
+     *          or {@code null} if not found
+     */
     @Override
     public InstructorDetail findInstructorDetailById(int id) {
         return em.find(InstructorDetail.class, id);
 
     }
 
+    /**
+     * Deletes an {@link InstructorDetail} by unique ID 
+     * without cascading to the associated instructor.
+     *
+     * @param id the primary key identifier of the detail record to remove
+     */
     @Override
     @Transactional
     public void deleteInstructorDetailById(int id) {
@@ -85,6 +116,13 @@ public class AppDaoImplement implements AppDao {
 
     }
 
+    /**
+     * Retrieves a list of {@link Course} entities taught by 
+     * a specific instructor.
+     *
+     * @param instructorId the instructor ID
+     * @return a list of assigned courses
+     */
     @Override
     public List<Course> findCoursesByInstructorId(int instructorId) {
         
@@ -98,6 +136,13 @@ public class AppDaoImplement implements AppDao {
     
     }
 
+    /**
+     * Retrieves an {@link Instructor} entity and eagerly fetches 
+     * assigned courses via JOIN FETCH.
+     *
+     * @param id the instructor ID
+     * @return the {@link Instructor} entity containing courses
+     */
     @Override
     public Instructor findInstructorByIdJoinFetch(int id) {
 
@@ -112,18 +157,35 @@ public class AppDaoImplement implements AppDao {
 
     }
 
+    /**
+     * Updates an existing {@link Instructor} record.
+     *
+     * @param instructor the instructor entity with updated fields
+     */
     @Override
     @Transactional 
     public void update(Instructor instructor) {
         em.merge(instructor);
     }
 
+    /**
+     * Persists a {@link Course} entity along with 
+     * its associated {@link Review} objects.
+     *
+     * @param course the course entity containing reviews
+     */
     @Override
     @Transactional 
     public void save(Course course) {
         em.persist(course);
     }
 
+    /**
+     * Retrieves a {@link Course} entity and eagerly fetches its reviews.
+     *
+     * @param id the course ID
+     * @return the matching {@link Course} with reviews initialized
+     */
     @Override
     public Course findCourseAndReviewsByCourseId(int id) {
 
@@ -138,6 +200,11 @@ public class AppDaoImplement implements AppDao {
         return course;
     }
 
+    /**
+     * Deletes a {@link Course} entity by unique ID.
+     *
+     * @param id the primary key identifier of the course to delete
+     */
     @Override
     @Transactional
     public void deleteCourseById(int id) {
@@ -147,6 +214,13 @@ public class AppDaoImplement implements AppDao {
 
     }
 
+    /**
+     * Retrieves a {@link Course} entity and eagerly fetches 
+     * its enrolled {@link Student} list.
+     *
+     * @param id the course ID
+     * @return the matching {@link Course} with students initialized
+     */
     @Override
     public Course findCourseAndStudentByCourseId(int id) {
         TypedQuery<Course> query = em.createQuery(
@@ -160,6 +234,13 @@ public class AppDaoImplement implements AppDao {
         
     }
 
+    /**
+     * Retrieves a {@link Student} entity and eagerly fetches 
+     * their enrolled {@link Course} list.
+     *
+     * @param id the student ID
+     * @return the matching {@link Student} with courses initialized
+     */
     @Override
     public Student findStudentAndCoursesByStudentId(int id) {
         TypedQuery<Student> query = em.createQuery(
@@ -173,6 +254,11 @@ public class AppDaoImplement implements AppDao {
 
     }
 
+    /**
+     * Updates an existing {@link Student} entity.
+     *
+     * @param student the student entity with updated fields
+     */
     @Override
     @Transactional 
     public void update(Student student) {
@@ -180,6 +266,11 @@ public class AppDaoImplement implements AppDao {
         
     }
 
+    /**
+     * Deletes a {@link Student} by unique ID.
+     *
+     * @param id the primary key identifier of the student to delete
+     */
     @Override
     @Transactional 
     public void deleteStudentById(int id) {
