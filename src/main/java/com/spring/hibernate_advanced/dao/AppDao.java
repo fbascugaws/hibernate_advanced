@@ -3,7 +3,6 @@ package com.spring.hibernate_advanced.dao;
 import com.spring.hibernate_advanced.entity.Course;
 import com.spring.hibernate_advanced.entity.Instructor;
 import com.spring.hibernate_advanced.entity.InstructorDetail;
-import com.spring.hibernate_advanced.entity.Review;
 import com.spring.hibernate_advanced.entity.Student;
 
 import java.util.List;
